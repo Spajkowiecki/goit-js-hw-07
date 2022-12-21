@@ -5,15 +5,20 @@ const gallery = document.querySelector(".gallery");
 
 gallery.addEventListener("click", (e) => {
   e.preventDefault();
+  const obrotnica = new SimpleLightbox(".gallery .gallery__item", {
+    captionsData: "alt",
+    captionDelay: 250,
+  });
+  const escapeEvent = (event) => {
+    if (event.key === "Escape") {
+      obrotnica.close();
+    }
+    gallery.removeEventListener("keyup", escapeEvent);
+  };
   if (e.target.classList.contains("gallery__image")) {
     log(e.target);
-    const obrotnica = new SimpleLightbox(".gallery .gallery__item", {
-      captionsData: "alt",
-      captionPosition: 250,
-    });
     obrotnica.open();
-
-    //obrotnica.on();
+    gallery.addEventListener("keyup", escapeEvent);
   }
 });
 

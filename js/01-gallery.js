@@ -12,16 +12,18 @@ const { log } = console;
 const gallery = document.querySelector(".gallery");
 gallery.addEventListener("click", (e) => {
   e.preventDefault();
-  if (e.target.classList.contains("gallery__image")) {
-    console.log(e.target);
-    const window = basicLightbox.create(`<img src=${e.target.dataset.source}>
+  const window = basicLightbox.create(`<img src=${e.target.dataset.source}>
       `);
+  const closeLightBox = (event) => {
+    if (event.key === "Escape") {
+      log("WYJSCIE");
+      window.close();
+      gallery.removeEventListener("keyup", closeLightBox);
+    }
+  };
+  if (e.target.classList.contains("gallery__image")) {
     window.show();
-    gallery.addEventListener("keyup", (k) => {
-      if (k.key === "Escape") {
-        window.close();
-      }
-    });
+    gallery.addEventListener("keyup", closeLightBox);
   }
 });
 
