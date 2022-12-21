@@ -10,18 +10,21 @@ import { galleryItems } from "./gallery-items.js";
 //////////////////////////////////////
 const { log } = console;
 const gallery = document.querySelector(".gallery");
+let window;
+const closeLightBox = (event) => {
+  if (event.key === "Escape") {
+    log("WYJSCIE");
+    window.close();
+    gallery.removeEventListener("keyup", closeLightBox);
+  }
+};
+//------------------------------------------------------
 gallery.addEventListener("click", (e) => {
   e.preventDefault();
-  const window = basicLightbox.create(`<img src=${e.target.dataset.source}>
-      `);
-  const closeLightBox = (event) => {
-    if (event.key === "Escape") {
-      log("WYJSCIE");
-      window.close();
-      gallery.removeEventListener("keyup", closeLightBox);
-    }
-  };
+
   if (e.target.classList.contains("gallery__image")) {
+    window = basicLightbox.create(`<img src=${e.target.dataset.source}>
+      `);
     window.show();
     gallery.addEventListener("keyup", closeLightBox);
   }

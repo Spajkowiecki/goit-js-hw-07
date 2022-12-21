@@ -1,24 +1,29 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const { log } = console;
+// my gallery, searching by class
 const gallery = document.querySelector(".gallery");
+
+const obrotnica = new SimpleLightbox(".gallery .gallery__item", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
+
+//event for closing lightbox
+const closeLightbox = (e) => {
+  if (e.key === "Escape") {
+    obrotnica.close();
+  }
+  gallery.removeEventListener("keyup", closeLightbox);
+};
 
 gallery.addEventListener("click", (e) => {
   e.preventDefault();
-  const obrotnica = new SimpleLightbox(".gallery .gallery__item", {
-    captionsData: "alt",
-    captionDelay: 250,
-  });
-  const escapeEvent = (event) => {
-    if (event.key === "Escape") {
-      obrotnica.close();
-    }
-    gallery.removeEventListener("keyup", escapeEvent);
-  };
+
   if (e.target.classList.contains("gallery__image")) {
     log(e.target);
     obrotnica.open();
-    gallery.addEventListener("keyup", escapeEvent);
+    gallery.addEventListener("keyup", closeLightbox);
   }
 });
 
