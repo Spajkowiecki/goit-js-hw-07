@@ -16,12 +16,13 @@ const closeLightbox = (e) => {
 
 gallery.addEventListener("click", (e) => {
   e.preventDefault();
-  obrotnica = new SimpleLightbox(".gallery .gallery__item", {
-  captionsData: "alt",
-  captionDelay: 250,
-});
+
   if (e.target.classList.contains("gallery__image")) {
     log(e.target);
+    obrotnica = new SimpleLightbox(".gallery .gallery__item", {
+      captionsData: "alt",
+      captionDelay: 250,
+    });
     obrotnica.open();
     gallery.addEventListener("keyup", closeLightbox);
   }
