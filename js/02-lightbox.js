@@ -4,10 +4,7 @@ const { log } = console;
 // my gallery, searching by class
 const gallery = document.querySelector(".gallery");
 
-const obrotnica = new SimpleLightbox(".gallery .gallery__item", {
-  captionsData: "alt",
-  captionDelay: 250,
-});
+let obrotnica;
 
 //event for closing lightbox
 const closeLightbox = (e) => {
@@ -19,7 +16,10 @@ const closeLightbox = (e) => {
 
 gallery.addEventListener("click", (e) => {
   e.preventDefault();
-
+  obrotnica = new SimpleLightbox(".gallery .gallery__item", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
   if (e.target.classList.contains("gallery__image")) {
     log(e.target);
     obrotnica.open();
